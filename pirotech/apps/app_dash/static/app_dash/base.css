@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" );
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Josefin Sans',sans-serif;
+}
+
+body{
+    background: #f3f5f9;
+    padding-top: 100px; /* Adjust body padding to account for fixed top-header and main header height */
+}
+
+.wrapper{
+    display: flex;
+    position: relative;
+
+}
+.wrapper .sidebar{
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    background: #4b4276;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+.wrapper .sidebar h2{
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.wrapper .sidebar ul li{
+    padding: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(225,225,225,0.05);
+
+}
+
+.wrapper .sidebar ul li a{
+    color: #bdb8d7;
+    display: block;
+}
+
+.wrapper .sidebar ul li a .fas{
+    width: 25px;
+}
+
+.wrapper .sidebar ul li:hover{
+    background: #594f8d;
+}
+
+.wrapper .sidebar ul li:hover a{
+    color: #fff;
+}
+
+.top-header {
+    background-color: #000000; /* Gray color for the top header */
+    color: #000000; /* White text for contrast */
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.wrapper .main_content .header {
+    background-color: #000000; /* White background for the main content header */
+    color: #333; /* Darker text */
+    padding: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 200px); /* Adjust for sidebar width */
+    position: fixed;
+    top: 60px; /* Position below the new top-header */
+    left: 200px; /* Adjust for sidebar width */
+    z-index: 998; /* Slightly lower z-index than top-header */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper .sidebar {
+        left: -200px; 
+        transition: all 0.5s ease;
+    }
+
+    .wrapper .sidebar.active {
+        left: 0; 
+    }
+
+    .wrapper .main_content {
+        margin-left: 0; 
+        width: 100%;
+    }
+
+    .wrapper .main_content .header {
+        width: 100%;
+        left: 0;
+        top: 60px; /* Position below the new top-header */
+    }
+
+    
+    .menu-toggle {
+        display: block; 
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        background: #4b4276;
+        color: #fff;
+        padding: 10px 15px;
+        cursor: pointer;
+        z-index: 1000; 
+        border-radius: 5px;
+    }
+
+    .top-header {
+        width: 100%;
+        left: 0;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .wrapper .sidebar {
+        left: 0; 
+    }
+
+    .wrapper .main_content {
+        margin-left: 200px; 
+    }
+
+    .menu-toggle {
+        display: none; 
+    }
+}
+
+/* Add this to your app_dash/base.css file */
+
+.role-content h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card h3 {
+    margin-bottom: 10px;
+    color: #4b4276;
+}
+
+.dashboard-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4b4276;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #594f8d;
+}
+
