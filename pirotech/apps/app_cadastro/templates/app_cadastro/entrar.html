@@ -1,0 +1,53 @@
+{% load static %}
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Pirotech</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="{% static '/style.css' %}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="form-header">
+            <div class="tites">
+                <div class="title-login">Login</div>
+            </div>
+            <form action="{% url 'entrar' %}" method="POST" class="login-form" autocomplete="off">
+                {% csrf_token %}
+                <div class="input-box">
+                    <input type="text" name="email" class="input-field" id="log-email" required>
+                    <label for="log-email" class="label">Email</label>
+                    <i class="bx bx-envelope icon"></i>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" name="senha" class="input-field" id="log-pass" required>
+                    <label for="log-pass" class="label">Senha</label>
+                </div>
+
+                <div class="input-box">
+                    <button type="submit">Entrar</button>
+                </div>
+            </form>
+
+            {% if messages %}
+                <div class="alert">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{% static 'app_cadastro/js/script.js' %}"></script>
+</body>
+</html>

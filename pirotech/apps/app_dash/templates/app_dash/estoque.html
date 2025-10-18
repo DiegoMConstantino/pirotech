@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'app_dash/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+<div class="top-header">Estoque</div>
+
+    <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="wrapper">
+        <div class="sidebar">
+    <ul>
+        {% if user.is_authenticated %}
+            
+            <!-- Ícone de Vendas: todos têm acesso -->
+            <li><a href="#"><i class="fa-solid fa-money-bill-1"></i> Vendas</a></li>
+
+            <!-- Ícone de Produtos: Dono e Gerente -->
+            {% if user.is_dono or user.is_gerente %}
+            <li><a href="{% url 'estoque' %}"><i class="fa-solid fa-box"></i> Produtos</a></li>
+            {% endif %}
+
+            <!-- Ícone de Funcionários: somente Dono -->
+            {% if user.is_dono %}
+                <li><a href="#"><i class="fa-solid fa-person"></i> Funcionários</a></li>
+            {% endif %}
+
+            <!-- Dashboards: Dono e Gerente -->
+            {% if user.is_dono or user.is_gerente %}
+                <li><a href="#"><i class="fa-solid fa-chart-simple"></i> Dashboards</a></li>
+            {% endif %}
+
+            <!-- Logout: todos -->
+            <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+
+        {% endif %}
+    </ul>
+</div>
+
+    </div>
+    
+    <script src="{% static 'app_dash/js/base.js' %}"></script>
+</body>
+</html>
+
+
