@@ -1,8 +1,4 @@
 {% load static %}
-
-
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,7 +7,7 @@
     <title>Login | Pirotech</title>
 
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-    <link rel="stylesheet" href="{% static '/style.css' %}">
+    <link rel="stylesheet" href="{% static 'app_cadastro/style.css' %}">
 </head>
 
 <body>
@@ -31,6 +27,7 @@
                 <div class="input-box">
                     <input type="password" name="senha" class="input-field" id="log-pass" required>
                     <label for="log-pass" class="label">Senha</label>
+                    <i class='bx bx-lock'></i>
                 </div>
 
                 <div class="input-box">
@@ -48,6 +45,7 @@
         </div>
     </div>
 
-    <script src="{% static 'app_cadastro/js/script.js' %}"></script>
+    <script src="{% static 'app_dash/js/base.js' %}"></script>
+
 </body>
 </html>

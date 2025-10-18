@@ -12,12 +12,12 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-image: url("imgs/logo.png"),url("imgs/fundo.jpg");
+    min-height: 110vh;
+    background-image: url("/static/imgs/logo.png"), url("/static/imgs/fundo.jpg");
     background-size: 20vw, cover;
     background-position: top center;  
     background-repeat: no-repeat; 
-    background-color: #fff5e6;
+    overflow: hidden
 
 }
 
@@ -42,5 +42,17 @@ body{
     transform: translateY(-1px);
     box-shadow: #754800  2px 4px;
     cursor: pointer;
+
+}
+
+
+.wrapper{
+    width: 400px;
+    padding: 20px;
+    background: transparent;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
 
 }
