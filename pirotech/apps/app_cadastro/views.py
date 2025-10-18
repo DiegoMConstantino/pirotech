@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import CustomUser
+from .forms import FuncionarioForm
 
-# Helper functions for role-based access checks
-def is_dono(user ):
+
+def is_dono(user):
     return user.is_authenticated and user.is_dono
 
 def is_gerente(user):
@@ -14,7 +15,7 @@ def is_gerente(user):
 def is_funcionario(user):
     return user.is_authenticated and user.is_funcionario
 
-# Decorator for Dono access
+
 def dono_required(function=None, redirect_field_name=None, login_url='entrar'):
     actual_decorator = user_passes_test(
         is_dono,
@@ -25,7 +26,7 @@ def dono_required(function=None, redirect_field_name=None, login_url='entrar'):
         return actual_decorator(function)
     return actual_decorator
 
-# Decorator for Gerente access
+
 def gerente_required(function=None, redirect_field_name=None, login_url='entrar'):
     actual_decorator = user_passes_test(
         is_gerente,
@@ -36,7 +37,7 @@ def gerente_required(function=None, redirect_field_name=None, login_url='entrar'
         return actual_decorator(function)
     return actual_decorator
 
-# Decorator for Funcionario access
+
 def funcionario_required(function=None, redirect_field_name=None, login_url='entrar'):
     actual_decorator = user_passes_test(
         is_funcionario,
@@ -48,7 +49,6 @@ def funcionario_required(function=None, redirect_field_name=None, login_url='ent
     return actual_decorator
 
 
-# Create your views here.
 def entrar(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -57,8 +57,6 @@ def entrar(request):
         
         if user is not None:
             login(request, user)
-
-            # Redirect based on role after successful login
             if user.is_dono:
                 return redirect('pagina_dono')
             elif user.is_gerente:
@@ -66,23 +64,62 @@ def entrar(request):
             else:
                 return redirect('pagina_funcionario')
         else:
-            messages.error(request, "Email ou senha inválidos.") # More generic message
+            messages.error(request, "Email ou senha inválidos.")
     return render(request, "app_cadastro/entrar.html")
+
 
 @login_required(login_url='entrar')
 @dono_required
 def pagina_dono(request):
-    # The role check is now handled by the @dono_required decorator
     return render(request, 'app_dash/pagina_dono.html')
 
 @login_required(login_url='entrar')
 @gerente_required
 def pagina_gerente(request):
-    # The role check is now handled by the @gerente_required decorator
     return render(request, 'app_dash/pagina_gerente.html')
 
 @login_required(login_url='entrar')
 @funcionario_required
 def pagina_funcionario(request):
-    # The role check is now handled by the @funcionario_required decorator
     return render(request, 'app_dash/pagina_funcionario.html')
+
+
+@login_required(login_url='entrar')
+@dono_required
+def funcionarios_list(request):
+   
+    print(">>> View FUNCIONARIOS_LIST foi chamada!")
+
+   
+    funcionarios = CustomUser.objects.filter(role__in=['GERENTE', 'FUNCIONARIO']).order_by('username')
+
+  
+    print(">>> Funcionários encontrados:", list(funcionarios.values('username', 'role')))
+
+    return render(request, 'app_dash/funcionario.html', {
+        'funcionarios': funcionarios
+    })
+
+@login_required(login_url='entrar')
+@dono_required
+def funcionario_create(request):
+    if request.method == 'POST':
+        form = FuncionarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Funcionário/Gerente criado com sucesso!')
+            return redirect('funcionario')
+    else:
+        form = FuncionarioForm()
+    return render(request, 'app_dash/funcionario_form.html', {'form': form})
+
+
+@login_required(login_url='entrar')
+@dono_required
+def funcionario_delete(request, pk):
+    funcionario = get_object_or_404(CustomUser, pk=pk, role__in=['GERENTE', 'FUNCIONARIO', 'gerente', 'funcionario'])
+    if request.method == 'POST':
+        funcionario.delete()
+        messages.success(request, 'Funcionário/Gerente deletado com sucesso!')
+        return redirect('funcionario')
+    return render(request, 'app_dash/funcionario_confirm_delete.html', {'funcionario': funcionario})

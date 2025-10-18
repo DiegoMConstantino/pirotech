@@ -1,14 +1,59 @@
+{% extends 'app_dash/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estoque - Pirotech</title>
-    <link rel="stylesheet" href="{% static 'app_dash/base.css' %}">
-</head>
-<body>
-    <h1>📦 Página de Estoque</h1>
-    <p>Bem-vindo à área de controle de estoque!</p>
-</body>
-</html>
+{% block content %}
+<h2>Estoque</h2>
+<p>Aqui você pode ver seu estoque</p>
+
+
+<button id="addProductBtn">+ Adicionar Produto</button>
+
+
+<div id="addProductModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Novo Produto</h3>
+        <form id="productForm">
+            <label>Animal:</label>
+            <select id="animal">
+                <option value="Cachorro">Cachorro</option>
+                <option value="Gato">Gato</option>
+                <option value="Outros">Outros</option>
+            </select>
+
+            <label>Peso:</label>
+            <select id="peso">
+                <option value="500g">500g</option>
+                <option value="1kg">1kg</option>
+            </select>
+
+            <label>Tipo:</label>
+            <select id="tipo">
+                <option value="Normal">Normal</option>
+                <option value="Premium">Premium</option>
+            </select>
+
+            <label>Quantidade:</label>
+            <input type="number" id="quantidade" min="1" value="1">
+
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+</div>
+
+
+<table id="productTable">
+    <thead>
+        <tr>
+            <th>Animal</th>
+            <th>Peso</th>
+            <th>Tipo</th>
+            <th>Quantidade</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+
+<script src="{% static 'app_dash/js/estoque.js' %}"></script>
+{% endblock %}
