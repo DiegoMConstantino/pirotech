@@ -1,4 +1,5 @@
 {% load static %}
+<<<<<<< Updated upstream
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -52,3 +53,68 @@
 </html>
 
 
+=======
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<div class="centralizado">
+    <h2>Estoque</h2>
+    <p>Veja os itens no estoque</p>
+
+
+    <button id="addProductBtn">+ Adicionar Produto</button>
+
+
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times; Fechar</span>
+            <h3>Esolha o produto</h3>
+            <form id="productForm">
+                <label class = "form-label" >Animal:</label>
+                <select id="animal">
+                    <option value="Cachorro">Cachorro</option>
+                    <option value="Gato">Gato</option>
+                    <option value="Outros">Outros</option>
+                </select>
+
+                <label class = "form-label">Peso:</label>
+                <select id="peso">
+                    <option value="500g">500g</option>
+                    <option value="1kg">1kg</option>
+                </select>
+
+                <label class = "form-label">Tipo:</label>
+                <select id="tipo">
+                    <option value="Normal">Normal</option>
+                    <option value="Premium">Premium</option>
+                </select>
+
+                <label class = "form-label">Quantidade:</label>
+                <input type="number" id="quantidade" min="1" value="1">
+
+                <button type="submit" class="salvar">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>Animal</th>
+                <th>Peso</th>
+                <th>Tipo</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+</div>
+
+<script src="{% static 'app_dash/js/estoque.js' %}"></script>
+{% endblock %}
+>>>>>>> Stashed changes

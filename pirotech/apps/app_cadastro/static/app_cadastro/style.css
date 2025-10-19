@@ -25,8 +25,20 @@ body{
 .input-box{
     width: 130%;
     margin-top: 10px;
+<<<<<<< Updated upstream
 }   
 
+=======
+    border-radius: 10px;
+}   
+
+.input-box input{
+    border: 1px solid  #754800;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 50%;
+}   
+>>>>>>> Stashed changes
 
 .input-box button{
     width: 30%;
