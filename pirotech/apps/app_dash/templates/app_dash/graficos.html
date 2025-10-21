@@ -1,5 +1,14 @@
 {% extends 'app_dash/base.html' %}
+{% load static %}
+
 {% block content %}
-<h2>DashBoard</h2>
-<p>Aqui você pode ver a dashboard de vendas</p>
+<h2>Gráfico de Vendas</h2>
+<p>Visualize o total de dinheiro ganho por dia.</p>
+
+
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+
+<div style="width: 90%; max-width: 900px; margin: auto;">
+    {{ grafico|safe }}
+</div>
 {% endblock %}

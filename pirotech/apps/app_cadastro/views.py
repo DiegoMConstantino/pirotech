@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import CustomUser
@@ -123,3 +123,9 @@ def funcionario_delete(request, pk):
         messages.success(request, 'Funcionário/Gerente deletado com sucesso!')
         return redirect('funcionario')
     return render(request, 'app_dash/funcionario_confirm_delete.html', {'funcionario': funcionario})
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request,'Logout realizado')
+    return redirect('entrar')

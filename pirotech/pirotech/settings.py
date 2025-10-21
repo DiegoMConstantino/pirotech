@@ -78,9 +78,13 @@ WSGI_APPLICATION = 'pirotech.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+   'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pirotech',       # nome do seu banco de dados
+        'USER': 'postgres',       # nome do usuário do PostgreSQL
+        'PASSWORD': '181012',  # troque pela senha que você usa no pgAdmin
+        'HOST': 'localhost',      # endereço do servidor
+        'PORT': '5432',           # porta padrão do PostgreSQL
     }
 }
 
@@ -119,7 +123,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",

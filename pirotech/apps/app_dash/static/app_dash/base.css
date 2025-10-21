@@ -16,9 +16,53 @@ body {
 }
 
 
+.logo img {
+    width: 170px;
+    height: auto;
+
+}
+
+
+.centralizado {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 101%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #ffffff;
+
+}
+
+.modal-content {
+    background-color: #EEEEEE !important;
+}
+
+.modal-content h3{
+    color: black;
+}
+.modal-content label{
+    color: rgb(0, 0, 0);
+}
+.centralizado::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("img/fundo_estoque.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+
 .wrapper {
     display: flex;
     position: relative;
+
 }
 
 .wrapper .sidebar {
@@ -27,8 +71,8 @@ body {
     left: 0;
     width: 200px;
     height: 100%;
-    background: #4b4276;
-    padding: 20px 0;
+    background: #6e470d;
+    padding: 30px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,14 +87,21 @@ body {
 }
 
 .wrapper .sidebar ul li {
+    color: #fff;
     padding: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-right: 3vw;
+    padding-top: 1vw;
+
+    border-bottom: 2px solid rgb(255, 255, 255);
 }
 
 .wrapper .sidebar ul li a {
-    color: #bdb8d7;
+    color: #ffffff;
     display: block;
+}
+
+.wrapper .sidebar ul li:hover a {
+    color: #ffaa00;
 }
 
 .wrapper .sidebar ul li a .fas {
@@ -58,12 +109,10 @@ body {
 }
 
 .wrapper .sidebar ul li:hover {
-    background: #e2e2e2;
+    background: rgb(255, 255, 255);
 }
 
-.wrapper .sidebar ul li:hover a {
-    color: #fff;
-}
+
 
 
 .top-header {
@@ -79,6 +128,28 @@ body {
     width: 100%;
     z-index: 1000;
 }
+
+
+.main_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;  
+    min-height: 80vh; 
+    padding-left: 30vw;      
+    
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+@media screen and (max-width: 768px) {
+    .main_content {
+        padding-left: 15vw;     
+    }
+}
+
+
 
 
 .wrapper .main_content .header {
@@ -99,21 +170,21 @@ body {
 
 
 .main-content {
-    margin-left: 200px;
-    padding: 120px 20px 20px 20px ;
-    min-height: 100vh;
-
+    margin-left: 200px;              
+    min-height: calc(100vh - 60px);   
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-
+    align-items: center;            
+    justify-content: center;         
     text-align: center;
+    padding: 20px;
 }
+
 
 .role-content h2 {
     margin-bottom: 20px;
     color: #333;
+    border: 2px solid #ffffff;
 }
 
 .dashboard-grid {
@@ -161,7 +232,7 @@ body {
 }
 
 #addProductBtn {
-    background-color: #4b7bec;
+    background-color: #ffb742;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -171,7 +242,7 @@ body {
 }
 
 #addProductBtn:hover {
-    background-color: #3867d6;
+    background-color: #FF9D00;
 }
 
 
@@ -189,24 +260,81 @@ body {
 }
 
 .modal-content {
+    display: flex;        
+
+    align-items: center;    
+    justify-content: center; 
+    gap: 20px;                
+    justify-content: center;
+    align-items: center;
     background: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 12px;
     width: 300px;
+
 }
 
 .close {
-    float: right;
+    display: inline-flex;
+    background-color: #ff2d2d;
+    color: white;
+    justify-content: center;
+    width: 140px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 26px; 
+    font-weight: bold;  
+    padding: 8px 16px; 
+    align-items: center;
+}
+
+.productForm{
+    display: flex;
+    flex-direction: line;
+    gap: 100px;
+}
+
+
+#animal, #tipo, #peso , #quantidade {
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+#animal:focus,#tipo:focus,#peso:focus, #quantidade:focus {
+    border-color: #000000;
+    box-shadow: 0 0 5px #00000080;
+}
+
+.form-label {
+    color: black;
+    font-weight: bold;
+}
+
+.salvar {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.salvar:hover {
+    background-color: #333333;
+    transform: scale(1.05);
 }
 
 #productTable {
     border-collapse: collapse;
     width: 80%;
-    background: white;
+    background: rgb(157, 157, 157);
     border-radius: 10px;
     overflow: hidden;
+    color: black;
 }
 
 #productTable th, #productTable td {
@@ -216,6 +344,17 @@ body {
 
 #productTable th {
     background-color: #f0f0f0;
+}
+
+.vendas-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: url("/static/app_dash/img/fundo_estoque.jpg") center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 

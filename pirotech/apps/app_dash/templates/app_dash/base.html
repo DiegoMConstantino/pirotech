@@ -40,11 +40,11 @@
 
                     <!-- Dashboard(s): dono e gerente -->
                     {% if user.is_dono or user.is_gerente %}
-                        <li><a href="{% url 'dashboard' %}"><i class="fa-solid fa-chart-simple"></i> Dashboards</a></li>
+                        <li><a href="{% url 'graficos' %}"><i class="fa-solid fa-chart-simple"></i> Dashboards</a></li>
                     {% endif %}
 
                     <!-- Logout -->
-                    <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                    <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'entrar' %}"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a></li>
                 {% endif %}
