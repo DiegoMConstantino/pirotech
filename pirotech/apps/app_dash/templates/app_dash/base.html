@@ -20,30 +20,24 @@
     <div class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir/Fechar menu">☰</div>
 
     <div class="wrapper">
-        <!-- SIDEBAR -->
         <nav class="sidebar" aria-label="Menu lateral">
             <h2>Pirotech</h2>
             <ul>
                 {% if user.is_authenticated %}
-                    <!-- Vendas: todos autenticados -->
                     <li><a href="{% url 'vendas' %}"><i class="fa-solid fa-money-bill-1"></i> Vendas</a></li>
 
-                    <!-- Produtos / Estoque: dono e gerente -->
                     {% if user.is_dono or user.is_gerente %}
                         <li><a href="{% url 'estoque' %}"><i class="fa-solid fa-box"></i> Produtos</a></li>
                     {% endif %}
 
-                    <!-- Funcionários: somente dono -->
                     {% if user.is_dono %}
                         <li><a href="{% url 'funcionario' %}"><i class="fa-solid fa-person"></i> Funcionários</a></li>
                     {% endif %}
 
-                    <!-- Dashboard(s): dono e gerente -->
                     {% if user.is_dono or user.is_gerente %}
                         <li><a href="{% url 'graficos' %}"><i class="fa-solid fa-chart-simple"></i> Dashboards</a></li>
                     {% endif %}
 
-                    <!-- Logout -->
                     <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'entrar' %}"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a></li>

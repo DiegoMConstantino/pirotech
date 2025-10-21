@@ -55,6 +55,7 @@ def graficos(request):
             paper_bgcolor='#fff',
             font=dict(family='Arial', size=14)
         )
+        fig.update_xaxes(tickformat='%d')
 
         grafico = fig.to_html(full_html=False)
 
@@ -64,33 +65,16 @@ def estoque(request):
     if request.method == 'POST':
         form = ProdutoForm(request.POST)
         if form.is_valid():
-            
-
             produto = form.save(commit=False)
-
-           
-           
-           
-        
             produto.preco = produto.calcular_preco()
-
-           
-           
-
-            messages.success(request, f'Produto "{produto.nome}" adicionado com preço R$ {produto.preco:.2f}!')
-            return redirect('estoque')
-        else:
-
-            messages.error(request, 'Houve um erro no formulário. Por favor, verifique os dados.')
-
+            produto.save()  
+            messages.success(request, 'Produto adicionado com sucesso!')
+            return redirect('estoque') 
     else:
         form = ProdutoForm()
-
-    produtos = Produto.objects.all().order_by('nome') # Ordenar por nome é uma boa prática
-    return render(request, 'app_dash/estoque.html', {
-        'form': form,
-        'produtos': produtos
-    })
+    
+    produtos = Produto.objects.all()
+    return render(request, 'app_dash/estoque.html', {'form': form, 'produtos': produtos})
 
 @login_required
 def vendas(request):
