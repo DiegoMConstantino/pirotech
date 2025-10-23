@@ -1,65 +1,145 @@
 {% extends 'app_dash/base.html' %}
 {% load static %}
 {% block content %}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
 <div class="centralizado">
-    <h2>Estoque</h2>
-    <p>Veja os itens no estoque</p>
+        <h2>Estoque</h2>
+        <p>Aqui você pode gerenciar o estoque de rações.</p>
 
+        <button id="addProductBtn">+ Adicionar Produto</button>
 
-    <button id="addProductBtn">+ Adicionar Produto</button>
+        <div id="addProductModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Novo Produto</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <label>Nome:</label>
+                    <input class="nome" type="text" name="nome" required>
 
+                    <label>Animal:</label>
+                    <select id="animal" name="tipo_animal" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="Cavalo">Cavalo</option>
+                        <option value="Bovino">Bovino</option>
+                        <option value="Ovelha">Ovelha</option>
+                        <option value="Porco">Porco</option>
+                        <option value="Galinha">Galinha</option>
+                    </select>
 
-    <div id="addProductModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times; Fechar</span>
-            <h3>Esolha o produto</h3>
-            <form id="productForm">
-                <label class = "form-label" >Animal:</label>
-                <select id="animal">
-                    <option value="Cachorro">Cachorro</option>
-                    <option value="Gato">Gato</option>
-                    <option value="Outros">Outros</option>
-                </select>
+                    <label>Tipo de Ração:</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Premium">Premium</option>
+                    </select>
 
-                <label class = "form-label">Peso:</label>
-                <select id="peso">
-                    <option value="500g">500g</option>
-                    <option value="1kg">1kg</option>
-                </select>
+                    <label>Peso:</label>
+                    <select id="peso" name="peso" required>
+                        <option value="">-- Selecione animal e tipo --</option>
+                    </select>
 
-                <label class = "form-label">Tipo:</label>
-                <select id="tipo">
-                    <option value="Normal">Normal</option>
-                    <option value="Premium">Premium</option>
-                </select>
+                    <label>Quantidade:</label>
+                    <input class="quantidade" type="number" name="quantidade" min="1" value="1" required>
 
-                <label class = "form-label">Quantidade:</label>
-                <input type="number" id="quantidade" min="1" value="1">
-
-                <button type="submit" class="salvar">Salvar</button>
-            </form>
+                    <button class="btn" type="submit">Salvar</button>
+                </form>
+            </div>
         </div>
-    </div>
 
 
+    <!-- Tabela de produtos -->
     <table id="productTable">
         <thead>
             <tr>
+                <th>Nome</th>
                 <th>Animal</th>
-                <th>Peso</th>
                 <th>Tipo</th>
+                <th>Peso</th>
                 <th>Quantidade</th>
+                <th>Preço (R$)</th>
             </tr>
         </thead>
         <tbody>
-            
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.nome }}</td>
+                <td>{{ produto.tipo_animal }}</td>
+                <td>{{ produto.tipo }}</td>
+                <td>{{ produto.peso }}</td>
+                <td>{{ produto.quantidade }}</td>
+                <td>{{ produto.preco }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">Nenhum produto cadastrado.</td></tr>
+            {% endfor %}
         </tbody>
     </table>
-
 </div>
 
-<script src="{% static 'app_dash/js/estoque.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('addProductModal');
+    const btn = document.getElementById('addProductBtn');
+    const close = document.querySelector('.close');
+
+    btn.onclick = () => modal.style.display = 'block';
+    close.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const animalSelect = document.getElementById('animal');
+    const tipoSelect = document.getElementById('tipo');
+    const pesoSelect = document.getElementById('peso');
+
+    const tabelaPesos = {
+        'Cavalo': {
+            'Premium': ['5kg', '20kg'],
+            'Normal': ['5kg', '20kg']
+        },
+        'Bovino': {
+            'Premium': ['10kg', '25kg'],
+            'Normal': ['10kg', '25kg']
+        },
+        'Ovelha': {
+            'Premium': ['2kg', '5kg'],
+            'Normal': ['2kg', '5kg']
+        },
+        'Porco': {
+            'Premium': ['1kg', '5kg'],
+            'Normal': ['1kg', '5kg']
+        },
+        'Galinha': {
+            'Premium': ['500g', '1kg'],
+            'Normal': ['500g', '1kg']
+        }
+    };
+
+    function atualizarPesos() {
+        const animal = animalSelect.value;
+        const tipo = tipoSelect.value;
+
+        pesoSelect.innerHTML = '<option value="">-- Selecione --</option>';
+
+        if (animal && tipo && tabelaPesos[animal] && tabelaPesos[animal][tipo]) {
+            tabelaPesos[animal][tipo].forEach(peso => {
+                const option = document.createElement('option');
+                option.value = peso;
+                option.textContent = peso;
+                pesoSelect.appendChild(option);
+            });
+        }
+    }
+
+    animalSelect.addEventListener('change', atualizarPesos);
+    tipoSelect.addEventListener('change', atualizarPesos);
+});
+</script>
+
 {% endblock %}

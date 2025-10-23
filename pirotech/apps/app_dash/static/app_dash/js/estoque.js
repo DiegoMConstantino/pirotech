@@ -1,15 +1,3 @@
-const animais = {
-    "Cachorro": "<i class='fa-solid fa-dog'></i>  Cachorro",
-    "Gato": "<i class='fa-solid fa-cat'></i>  Gato",
-    "Outros": "<i class='fa-solid fa-paw'></i>  Outros"
-};
-
-const tipos = {
-    "Normal": "<i class='fa-solid fa-box'></i> Normal",
-    "Premium": "<i class='fa-solid fa-gem'></i> Premium"
-};
-
-
 document.addEventListener("DOMContentLoaded", function() {
     const modal = document.getElementById("addProductModal");
     const btn = document.getElementById("addProductBtn");
@@ -29,12 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const quantidade = document.getElementById("quantidade").value;
 
         const newRow = document.createElement("tr");
-        newRow.innerHTML = `
-        <td>${animais[animal] || animal}</td>
-        <td>${peso}</td>
-        <td>${tipos[tipo] || tipo}</td>
-        <td>${quantidade}</td>
-        `;
+        newRow.innerHTML = `<td>${animal}</td><td>${peso}</td><td>${tipo}</td><td>${quantidade}</td>`;
         tableBody.appendChild(newRow);
 
         modal.style.display = "none";

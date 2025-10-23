@@ -6,6 +6,16 @@ class FuncionarioForm(forms.ModelForm):
         model = CustomUser
         fields = ['username', 'email', 'password', 'role']
 
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'func'}),
+            'email': forms.EmailInput(attrs={'class': 'func'}),
+            'password': forms.PasswordInput(attrs={'class': 'func'}),
+            'role': forms.Select(attrs={'class': 'func'}),
+        }
+        help_texts = {
+            'username': ''
+        }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -14,7 +24,6 @@ class FuncionarioForm(forms.ModelForm):
             ('FUNCIONARIO', 'Funcionário'),
         ]
         
-        self.fields['password'].widget = forms.PasswordInput()
 
     def save(self, commit=True):
         
@@ -24,3 +33,4 @@ class FuncionarioForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    

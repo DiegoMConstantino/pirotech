@@ -7,9 +7,9 @@
     <title>{% block title %}Dashboard - Pirotech{% endblock %}</title>
 
     
-
-
     <link rel="stylesheet" href="{% static 'app_dash/base.css' %}">
+
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -20,33 +20,25 @@
     <div class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir/Fechar menu">☰</div>
 
     <div class="wrapper">
-        <!-- SIDEBAR -->
         <nav class="sidebar" aria-label="Menu lateral">
-            <div class="logo">
-                 <img src="{% static 'app_dash/img/logo.png' %}" alt="Logo Pirotech">
-            </div>
+            <h2>Pirotech</h2>
             <ul>
                 {% if user.is_authenticated %}
-                    <!-- Vendas: todos autenticados -->
                     <li><a href="{% url 'vendas' %}"><i class="fa-solid fa-money-bill-1"></i> Vendas</a></li>
 
-                    <!-- Produtos / Estoque: dono e gerente -->
                     {% if user.is_dono or user.is_gerente %}
                         <li><a href="{% url 'estoque' %}"><i class="fa-solid fa-box"></i> Produtos</a></li>
                     {% endif %}
 
-                    <!-- Funcionários: somente dono -->
                     {% if user.is_dono %}
                         <li><a href="{% url 'funcionario' %}"><i class="fa-solid fa-person"></i> Funcionários</a></li>
                     {% endif %}
 
-                    <!-- Dashboard(s): dono e gerente -->
                     {% if user.is_dono or user.is_gerente %}
-                        <li><a href="{% url 'dashboard' %}"><i class="fa-solid fa-chart-simple"></i> Dashboards</a></li>
+                        <li><a href="{% url 'graficos' %}"><i class="fa-solid fa-chart-simple"></i> Dashboards</a></li>
                     {% endif %}
 
-                    <!-- Logout -->
-                    <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                    <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'entrar' %}"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a></li>
                 {% endif %}
