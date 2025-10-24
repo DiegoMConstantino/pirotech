@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Dashboard - Pirotech{% endblock %}</title>
+
+    
+    <link rel="stylesheet" href="{% static 'app_dash/base.css' %}">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir/Fechar menu">☰</div>
+
+    <div class="wrapper">
+        <nav class="sidebar" aria-label="Menu lateral">
+            <h2>Pirotech</h2>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'vendas' %}"><i class="fa-solid fa-money-bill-1"></i> Vendas</a></li>
+
+                    {% if user.is_dono or user.is_gerente %}
+                        <li><a href="{% url 'estoque' %}"><i class="fa-solid fa-box"></i> Produtos</a></li>
+                    {% endif %}
+
+                    {% if user.is_dono %}
+                        <li><a href="{% url 'funcionario' %}"><i class="fa-solid fa-person"></i> Funcionários</a></li>
+                    {% endif %}
+
+                    {% if user.is_dono or user.is_gerente %}
+                        <li><a href="{% url 'graficos' %}"><i class="fa-solid fa-chart-simple"></i> Dashboards</a></li>
+                    {% endif %}
+
+                    <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'entrar' %}"><i class="fa-solid fa-right-to-bracket"></i> Entrar</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <main class="main_content" role="main">
+           
+            
+            <div class="main-content">
+                {% block content %}
+                <div class="role-content">
+                    <h2>Bem-vindo à Pirotech</h2>
+                    <p>Use o menu à esquerda para navegar.</p>
+                </div>
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.querySelector(".sidebar").classList.toggle("active");
+        }
+    </script>
+</html>

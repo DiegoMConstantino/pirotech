@@ -1,0 +1,76 @@
+{% extends 'app_dash/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="vendas-container">
+    <h2 style="color: #D18100">Vendas</h2>
+    <p>Registre vendas e acompanhe o histórico.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn" type="submit">Registrar Venda</button>
+    </form>
+
+    <hr>
+
+
+    <h3 style="color: #D18100;">Produtos em Estoque</h3>
+    <table id="estoqueTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Animal</th>
+                <th>Peso</th>
+                <th>Tipo</th>
+                <th>Quantidade</th>
+                <th>Preço (R$)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.nome }}</td>
+                <td>{{ produto.tipo_animal }}</td>
+                <td>{{ produto.peso }}</td>
+                <td>{{ produto.tipo }}</td>
+                <td>{{ produto.quantidade }}</td>
+                <td>{{ produto.preco }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">Nenhum produto disponível.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+
+    <h3 style="color: #D18100;">Histórico de Vendas</h3>
+    <table id="vendasTable">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade Vendida</th>
+                <th>Total (R$)</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venda in vendas %}
+            <tr>
+                <td>{{ venda.produto.nome }}</td>
+                <td>{{ venda.quantidade_vendida }}</td>
+                <td>{{ venda.total|floatformat:2 }}</td>
+                <td>{{ venda.data|date:"d/m/Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Nenhuma venda registrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

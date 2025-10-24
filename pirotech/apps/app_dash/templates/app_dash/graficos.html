@@ -1,0 +1,43 @@
+{% extends 'app_dash/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Indicadores de Desempenho</h2>
+
+<p><strong>Total de Vendas:</strong> {{ total_vendas }}</p>
+<p><strong>Faturamento:</strong> R$ {{ faturamento }}</p>
+<p><strong>Gastos:</strong> R$ {{ gastos }}</p>
+<p><strong>Lucro/Prejuízo:</strong> R$ {{ lucro }}</p>
+<p><strong>Produtos em Estoque:</strong> {{ total_estoque }}</p>
+<p><strong>Mais Vendido:</strong> {{ produto_mais_vendido }}</p>
+<p><strong>Menos Vendido:</strong> {{ produto_menos_vendido }}</p>
+
+<h3>Meta de Faturamento</h3>
+<form method="post">
+  {% csrf_token %}
+  <input type="number" step="0.01" name="meta_faturamento" placeholder="Digite a meta em R$" required>
+  <button type="submit">Definir Meta</button>
+</form>
+
+{% if meta %}
+  <p><strong>Meta Definida:</strong> R$ {{ meta }}</p>
+  <p><strong>Percentual Alcançado:</strong> {{ percentual }}%</p>
+{% endif %}
+
+<h3>Registrar Despesa Mensal</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Salvar</button>
+</form>
+
+<h3>Gráficos</h3>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+<div style="margin:auto; width:90%; max-width:900px;">
+  {{ grafico_vendas|safe }}
+</div>
+<div style="margin:auto; width:90%; max-width:900px;">
+  {{ grafico_financeiro|safe }}
+</div>
+{% endblock %}

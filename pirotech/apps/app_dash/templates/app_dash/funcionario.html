@@ -1,0 +1,74 @@
+{% extends 'app_dash/base.html' %}
+
+{% block content %}
+<div class="fundo_func">
+  <h2>Gerenciamento de Funcionários e Gerentes</h2>
+  <p>Aqui você pode ver e gerenciar seus funcionários e gerentes.</p>
+
+  <a href="{% url 'funcionario_create' %}" class="btn btn-primary mb-3">Adicionar Novo</a>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <table id="tabela_func">
+    <thead>
+      <tr>
+        <th>Nome de Usuário</th>
+        <th>Email</th>
+        <th>Cargo</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for funcionario in funcionarios %}
+        <tr>
+          <td>{{ funcionario.username }}</td>
+          <td>{{ funcionario.email }}</td>
+          <td>{{ funcionario.get_role_display }}</td>
+          <td>
+            {% if funcionario.role == 'FUNCIONARIO' %}
+    <form action="{% url 'promover_funcionario' funcionario.pk %}" method="post" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success btn-sm">Promover</button>
+    </form>
+{% else %}
+    <span class="text-muted">Já é gerente</span>
+{% endif %}
+            <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ funcionario.pk }}">
+              Excluir
+            </a>
+          </td>
+        </tr>
+
+        <div class="modal fade" id="deleteModal-{{ funcionario.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ funcionario.pk }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel-{{ funcionario.pk }}">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Tem certeza de que deseja excluir o usuário <strong>{{ funcionario.username }}</strong>?
+              </div>
+              <div class="modal-footer">
+                <form action="{% url 'funcionario_delete' funcionario.pk %}" method="post">
+                  {% csrf_token %}
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <tr>
+          <td colspan="4" class="text-center">Nenhum funcionário ou gerente encontrado.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

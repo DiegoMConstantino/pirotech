@@ -1,0 +1,677 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+
+body {
+    overflow-x: hidden;
+    padding-top: 0;
+}
+
+
+.logo img {
+    width: 170px;
+    height: auto;
+
+}
+
+
+.centralizado {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10vw;  
+    color: #ffffff;
+
+}
+
+.modal-content {
+    background-color: #ffd899 !important;
+}
+
+.modal-content h3{
+    color: black;
+}
+.modal-content label{
+    color: rgb(0, 0, 0);
+}
+.centralizado::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_estoque.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+
+.fundo_func{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 101%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding-left: 8vw; 
+}
+
+
+.fundo_func::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_funcio.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+
+
+.wrapper {
+    display: flex;
+    position: relative;
+
+}
+
+.wrapper .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background: #c78d36;
+    padding: 30px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.wrapper .sidebar h2 {
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.wrapper .sidebar ul li {
+    color: #fff;
+    padding: 15px;
+    padding-right: 3vw;
+    padding-top: 1vw;
+
+    border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.wrapper .sidebar ul li a {
+    color: #ffffff;
+    display: block;
+}
+
+.wrapper .sidebar ul li:hover a {
+    color: #ffaa00;
+}
+
+.wrapper .sidebar ul li a .fas {
+    width: 25px;
+}
+
+.wrapper .sidebar ul li:hover {
+    background: rgb(255, 255, 255);
+}
+
+
+
+
+.top-header {
+    background-color: #ffffff;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+
+.main_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;  
+    min-height: 80vh; 
+    padding-left: 20vw;      
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+@media screen and (max-width: 768px) {
+    .main_content {
+        padding-left: 15vw;     
+    }
+}
+
+
+
+
+.wrapper .main_content .header {
+    background: #d7ba8b;
+    background-color: #d2b48c;
+    color: #333;
+    padding: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 200px);
+    position: fixed;
+    top: 60px; 
+    left: 200px;
+    z-index: 998;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+
+.main-content {      
+    min-height: calc(100vh - 60px);   
+    display: flex;
+    flex-direction: column;
+    align-items: center;            
+    justify-content: center;         
+    text-align: center;
+    padding: 20px 100px;
+}
+
+
+.role-content h2 {
+    margin-bottom: 20px;
+    color: #333;
+    border: 2px solid #ffffff;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(247, 247, 247, 0.1);
+    transition: transform 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card h3 {
+    margin-bottom: 10px;
+    color: #4b4276;
+}
+
+.dashboard-card p {
+    font-size: 14px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff9500 !important;
+    color: #ffffff !important;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #e08500  !important; 
+    color: #ffffff !important;
+}
+
+#addProductBtn {
+    background-color: #ffb742;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#addProductBtn:hover {
+    background-color: #ff9d00;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    display: flex;        
+    align-items: center;    
+    justify-content: center; 
+    gap: 20px;                
+    justify-content: center;
+    align-items: center;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 300px;
+
+}
+
+.close {
+    display: inline-flex;
+    background-color: #ff2d2d;
+    color: white;
+    justify-content: center;
+    width: 140px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 26px; 
+    font-weight: bold;  
+    padding: 8px 16px; 
+    align-items: center;
+}
+
+.productForm{
+    display: flex;
+    flex-direction: line;
+    gap: 100px;
+}
+
+.nome {
+    height: 36px;
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;  
+    background-color: #e3b872;
+}
+
+.func{
+    gap: 20px; 
+    height: 36px;
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;  
+    background-color: #e3b872;
+
+
+}
+
+.quantidade{
+    height: 36px;
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;  
+    background-color: #e3b872;
+
+}
+#animal, #tipo, #peso , #quantidade {
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #e3b872;
+}
+#animal:focus,#tipo:focus,#peso:focus, #quantidade:focus {
+    border-color: #000000;
+    box-shadow: 0 0 5px #00000080;
+}
+
+.form-label {
+    color: black;
+    font-weight: bold;
+}
+
+.salvar {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.salvar:hover {
+    background-color: #333333;
+    transform: scale(1.05);
+}
+
+#productTable {
+    border-collapse: collapse;
+    width: 100%;
+    background: #e3b872;
+    border-radius: 10px;
+    overflow: hidden;
+    color: black;
+
+}
+
+#productTable th, #productTable td {
+    padding: 10px;
+    border-bottom: 1px solid #D18100;
+}
+
+#productTable th {
+    background-color: #D18100;
+}
+
+.vendas-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10vw;   
+}
+.vendas-container::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_vendas.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+
+@media screen and (max-width: 768px) {
+    .wrapper .sidebar {
+        left: -200px;
+        transition: all 0.5s ease;
+    }
+
+    .wrapper .sidebar.active {
+        left: 0;
+    }
+
+    .wrapper .main_content .header {
+        width: 100%;
+        left: 0;
+        top: 60px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding-top: 140px;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        background: #eb963b;
+        color: #fff;
+        padding: 10px 15px;
+        cursor: pointer;
+        z-index: 1001;
+        border-radius: 5px;
+    }
+
+    .top-header {
+        width: 100%;
+        left: 0;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .wrapper .sidebar {
+        left: 0;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+}
+
+#estoqueTable, #vendasTable {
+    border-collapse: collapse;
+    width: 100%;
+    background: #e3b872;
+    border-radius: 10px;
+    overflow: hidden;
+    color: black;
+}
+
+
+#estoqueTable td, #vendasTable td {
+    padding: 10px;
+    border-bottom: 1px solid #D18100;
+}
+
+#estoqueTable th, #vendasTable th {
+    background-color: #D18100;
+}
+
+.venda-select, .venda-input {
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #e3b872;
+}
+
+.venda-select:focus, .venda-input:focus {
+    border-color: #000000;
+    box-shadow: 0 0 5px #00000080;
+}
+
+#tabela_func{
+
+    border-collapse: collapse;
+    width: 100%;
+    background: #e3b872;
+    border-radius: 10px;
+    overflow: hidden;
+    color: black;
+}
+
+#tabela_func td, #tabela_func td {
+    padding: 10px;
+    border-bottom: 1px solid #D18100;
+}
+
+#tabela_func th, #tabela_func th {
+    height: 45px;
+    background-color: #D18100;
+}
+
+
+#estoqueTable th, #vendasTable th {
+    background-color: #D18100;
+}
+
+.fundo_funcionario{
+    text-align: justify;  
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding: 40px 20px;
+    overflow: hidden;
+}
+
+.fundo_funcionario::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background-color: #ffe2b4 !important;  
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+.fundo_dono{
+    text-align: justify;  
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding: 40px 20px;
+    overflow: hidden;
+    padding-left: 17vw; 
+}
+
+.fundo_dono::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background : url("/static/img/fundo_dono.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+.fundo_dash{
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+    color : #000000;
+
+
+}
+
+.fundo_dash::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_dash.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+
+}
+
+
+.container_grafico {
+    
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    width: 900px; 
+    box-sizing: border-box;
+}
+
+
+.fundo_gerente{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 101%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding-left: 17vw; 
+}
+
+
+.fundo_gerente::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_gerente.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+.fundo_funcio{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 101%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding-left: 17vw; 
+}
+
+
+.fundo_funcio::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_func.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
