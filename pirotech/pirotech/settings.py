@@ -1,19 +1,15 @@
 import os
 from pathlib import Path
-import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 APPS_DIR = BASE_DIR / 'apps'
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'chave-teste-local')
+# --- Segurança e debug ---
+SECRET_KEY = 'chave-teste-local'
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
-DEBUG = 'RENDER' not in os.environ
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-
+# --- Aplicações ---
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,6 +25,7 @@ INSTALLED_APPS += [
     if os.path.isdir(APPS_DIR / name) and (APPS_DIR / name / '__init__.py').exists()
 ]
 
+# --- Middleware ---
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -42,10 +39,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'pirotech.urls'
 
+# --- Templates ---
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -59,18 +57,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pirotech.wsgi.application'
 
+# --- Banco de dados local ---
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pirotech',
-        'USER': 'pirotech_user',
+        'USER': 'postgres',
         'PASSWORD': '181012',
-        'HOST': 'dpg-d3sec963jp1c738mttag-a',
-        'PORT': '5432',  
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
-# --- Senhas ---
+
+# --- Validação de senha ---
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -78,6 +80,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# --- Localização ---
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
@@ -89,8 +92,8 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# --- Configurações padrão ---
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 AUTH_USER_MODEL = 'app_cadastro.CustomUser'
 
 LOGIN_URL = 'entrar'
