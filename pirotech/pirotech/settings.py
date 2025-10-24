@@ -62,7 +62,7 @@ WSGI_APPLICATION = 'pirotech.wsgi.application'
 # --- Banco de dados ---
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://pirotech_user:BB3Ft4IswKIRYLq9IRVAhoH1QomlXmJa@dpg-d3sec963jp1c738mttag-a.oregon-postgres.render.com/pirotech',
+        default=os.environ.get('postgresql://pirotech_user:BB3Ft4IswKIRYLq9IRVAhoH1QomlXmJa@dpg-d3sec963jp1c738mttag-a.oregon-postgres.render.com/pirotech'),
         conn_max_age=600
     )
 }
