@@ -50,6 +50,7 @@ def funcionario_required(function=None, redirect_field_name=None, login_url='ent
 
 
 def entrar(request):
+    '''
     if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['senha']
@@ -65,6 +66,7 @@ def entrar(request):
                 return redirect('pagina_funcionario')
         else:
             messages.error(request, "Email ou senha inválidos.")
+            '''
     return render(request, "app_cadastro/entrar.html")
 
 

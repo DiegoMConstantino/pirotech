@@ -59,12 +59,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pirotech.wsgi.application'
 
-# --- Banco de dados ---
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('postgresql://pirotech_user:BB3Ft4IswKIRYLq9IRVAhoH1QomlXmJa@dpg-d3sec963jp1c738mttag-a.oregon-postgres.render.com/pirotech'),
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pirotech',
+        'USER': 'pirotech_user',
+        'PASSWORD': '181012',
+        'HOST': 'dpg-d3sec963jp1c738mttag-a',
+        'PORT': '5432',  
+    }
 }
 
 # --- Senhas ---
