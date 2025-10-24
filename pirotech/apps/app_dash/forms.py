@@ -1,5 +1,5 @@
 from django import forms
-from .models import Produto, Venda
+from .models import Produto, Venda , Despesa
 
 class ProdutoForm(forms.ModelForm):
     class Meta:
@@ -21,4 +21,13 @@ class VendaForm(forms.ModelForm):
         labels = {
             'produto': 'Selecione o Produto',
             'quantidade_vendida': 'Quantidade Vendida'
+        }
+
+class DespesaForm(forms.ModelForm):
+    class Meta:
+        model = Despesa
+        fields = ['valor']
+        widgets = {
+            'valor': forms.NumberInput(attrs={'placeholder':'Digite o valor das despesas em R$'})
+
         }

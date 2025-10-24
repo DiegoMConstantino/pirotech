@@ -9,8 +9,8 @@
     font-family: 'Josefin Sans', sans-serif;
 }
 
+
 body {
-    background: #f3f5f9;
     overflow-x: hidden;
     padding-top: 0;
 }
@@ -25,20 +25,18 @@ body {
 
 .centralizado {
     position: relative;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 20px;
-    width: 101%;
-    box-sizing: border-box;
-    overflow: hidden;
+    justify-content: center;
+    padding-left: 10vw;  
     color: #ffffff;
 
 }
 
 .modal-content {
-    background-color: #EEEEEE !important;
+    background-color: #ffd899 !important;
 }
 
 .modal-content h3{
@@ -53,10 +51,38 @@ body {
     top: 0; left: 0; right: 0; bottom: 0;
     width: 102vw;  
     height: 102vh;
-    background: url("img/fundo_estoque.jpg") center/cover no-repeat;
+    background: url("/static/img/fundo_estoque.jpg") center/cover no-repeat;
     filter: blur(10px);
     z-index: -1; 
 }
+
+
+.fundo_func{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 101%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding-left: 8vw; 
+}
+
+
+.fundo_func::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_funcio.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
+
 
 
 .wrapper {
@@ -71,7 +97,7 @@ body {
     left: 0;
     width: 200px;
     height: 100%;
-    background: #6e470d;
+    background: #c78d36;
     padding: 30px 0px;
     display: flex;
     flex-direction: column;
@@ -136,8 +162,7 @@ body {
     align-items: center;  
     justify-content: center;  
     min-height: 80vh; 
-    padding-left: 30vw;      
-    
+    padding-left: 20vw;      
     box-sizing: border-box;
     text-align: center;
 }
@@ -153,6 +178,7 @@ body {
 
 
 .wrapper .main_content .header {
+    background: #d7ba8b;
     background-color: #d2b48c;
     color: #333;
     padding: 15px;
@@ -169,15 +195,14 @@ body {
 }
 
 
-.main-content {
-    margin-left: 200px;              
+.main-content {      
     min-height: calc(100vh - 60px);   
     display: flex;
     flex-direction: column;
     align-items: center;            
     justify-content: center;         
     text-align: center;
-    padding: 20px;
+    padding: 20px 100px;
 }
 
 
@@ -220,15 +245,16 @@ body {
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #4b4276;
-    color: #fff;
+    background-color: #ff9500 !important;
+    color: #ffffff !important;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.2s;
 }
 
 .btn:hover {
-    background-color: #594f8d;
+    background-color: #e08500  !important; 
+    color: #ffffff !important;
 }
 
 #addProductBtn {
@@ -242,7 +268,7 @@ body {
 }
 
 #addProductBtn:hover {
-    background-color: #FF9D00;
+    background-color: #ff9d00;
 }
 
 
@@ -261,7 +287,6 @@ body {
 
 .modal-content {
     display: flex;        
-
     align-items: center;    
     justify-content: center; 
     gap: 20px;                
@@ -296,13 +321,46 @@ body {
     gap: 100px;
 }
 
+.nome {
+    height: 36px;
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;  
+    background-color: #e3b872;
+}
 
+.func{
+    gap: 20px; 
+    height: 36px;
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;  
+    background-color: #e3b872;
+
+
+}
+
+.quantidade{
+    height: 36px;
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;  
+    background-color: #e3b872;
+
+}
 #animal, #tipo, #peso , #quantidade {
     width: 130px;
     padding: 8px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 10px;
+    background-color: #e3b872;
 }
 #animal:focus,#tipo:focus,#peso:focus, #quantidade:focus {
     border-color: #000000;
@@ -330,31 +388,43 @@ body {
 
 #productTable {
     border-collapse: collapse;
-    width: 80%;
-    background: rgb(157, 157, 157);
+    width: 100%;
+    background: #e3b872;
     border-radius: 10px;
     overflow: hidden;
     color: black;
+
 }
 
 #productTable th, #productTable td {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #D18100;
 }
 
 #productTable th {
-    background-color: #f0f0f0;
+    background-color: #D18100;
 }
 
 .vendas-container {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: url("/static/app_dash/img/fundo_estoque.jpg") center/cover no-repeat;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-left: 10vw;   
+}
+.vendas-container::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_vendas.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
 }
 
 
@@ -385,7 +455,7 @@ body {
         position: fixed;
         top: 15px;
         left: 15px;
-        background: #4b4276;
+        background: #eb963b;
         color: #fff;
         padding: 10px 15px;
         cursor: pointer;
@@ -407,4 +477,201 @@ body {
     .menu-toggle {
         display: none;
     }
+}
+
+#estoqueTable, #vendasTable {
+    border-collapse: collapse;
+    width: 100%;
+    background: #e3b872;
+    border-radius: 10px;
+    overflow: hidden;
+    color: black;
+}
+
+
+#estoqueTable td, #vendasTable td {
+    padding: 10px;
+    border-bottom: 1px solid #D18100;
+}
+
+#estoqueTable th, #vendasTable th {
+    background-color: #D18100;
+}
+
+.venda-select, .venda-input {
+    width: 130px;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #e3b872;
+}
+
+.venda-select:focus, .venda-input:focus {
+    border-color: #000000;
+    box-shadow: 0 0 5px #00000080;
+}
+
+#tabela_func{
+
+    border-collapse: collapse;
+    width: 100%;
+    background: #e3b872;
+    border-radius: 10px;
+    overflow: hidden;
+    color: black;
+}
+
+#tabela_func td, #tabela_func td {
+    padding: 10px;
+    border-bottom: 1px solid #D18100;
+}
+
+#tabela_func th, #tabela_func th {
+    height: 45px;
+    background-color: #D18100;
+}
+
+
+#estoqueTable th, #vendasTable th {
+    background-color: #D18100;
+}
+
+.fundo_funcionario{
+    text-align: justify;  
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding: 40px 20px;
+    overflow: hidden;
+}
+
+.fundo_funcionario::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background-color: #ffe2b4 !important;  
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+.fundo_dono{
+    text-align: justify;  
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding: 40px 20px;
+    overflow: hidden;
+    padding-left: 17vw; 
+}
+
+.fundo_dono::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background : url("/static/img/fundo_dono.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+.fundo_dash{
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+    color : #000000;
+
+
+}
+
+.fundo_dash::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_dash.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+
+}
+
+
+.container_grafico {
+    
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    width: 900px; 
+    box-sizing: border-box;
+}
+
+
+.fundo_gerente{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 101%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding-left: 17vw; 
+}
+
+
+.fundo_gerente::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_gerente.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
+}
+
+.fundo_funcio{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 101%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #000000;
+    padding-left: 17vw; 
+}
+
+
+.fundo_funcio::before{
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 102vw;  
+    height: 102vh;
+    background: url("/static/img/fundo_func.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    z-index: -1; 
 }

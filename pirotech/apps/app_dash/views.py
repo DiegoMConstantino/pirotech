@@ -1,65 +1,101 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Produto, Venda
-from .forms import VendaForm, ProdutoForm
+from .models import Produto, Venda ,  Despesa
+from .forms import VendaForm, ProdutoForm , DespesaForm
 import plotly.express as px
 import pandas as pd
 import logging
+from datetime import datetime
 
 @login_required
 def graficos(request):
-    dados = list(Venda.objects.values('data', 'total'))
+    meta = None
+    percentual = None
 
-    if not dados:
-        grafico = "<p>Sem dados de vendas para exibir.</p>"
+    if request.method == 'POST':
+        if 'meta_faturamento' in request.POST:
+            meta_valor = request.POST.get('meta_faturamento', 0)
+            try:
+                meta = float(meta_valor)
+            except ValueError:
+                meta = 0.0
+        form = DespesaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('graficos')
     else:
-        
-        df = pd.DataFrame(dados)
+        form = DespesaForm()
 
+    hoje = datetime.now()
+    mes_atual = hoje.month
+    ano_atual = hoje.year
+    vendas = Venda.objects.filter(data__month=mes_atual, data__year=ano_atual)
+    total_vendas = vendas.count()
+    faturamento = float(sum(float(v.total) for v in vendas))
+    despesas_mes = Despesa.objects.filter(mes_referencia__month=mes_atual, mes_referencia__year=ano_atual)
+    gastos = float(sum(float(d.valor) for d in despesas_mes))
+    lucro = faturamento - gastos
+    produtos = Produto.objects.all()
+    total_estoque = sum(p.quantidade for p in produtos)
 
-        df['data'] = pd.to_datetime(df['data']).dt.date
+    if vendas.exists():
+        df_vendas = pd.DataFrame(list(vendas.values('produto__nome', 'produto__tipo_animal', 'quantidade_vendida')))
+        agrupado = df_vendas.groupby(['produto__nome', 'produto__tipo_animal'])['quantidade_vendida'].sum().reset_index()
+        mais_vendido = agrupado.loc[agrupado['quantidade_vendida'].idxmax()]
+        menos_vendido = agrupado.loc[agrupado['quantidade_vendida'].idxmin()]
+        produto_mais_vendido = f"{mais_vendido['produto__nome']} ({mais_vendido['produto__tipo_animal']})"
+        produto_menos_vendido = f"{menos_vendido['produto__nome']} ({menos_vendido['produto__tipo_animal']})"
+    else:
+        produto_mais_vendido = produto_menos_vendido = 'Nenhum registro'
 
+    if meta and meta > 0:
+        percentual = round((faturamento / meta) * 100, 2)
+    else:
+        percentual = None
 
-        df_agrupado = df.groupby('data')['total'].sum().reset_index()
+    if vendas.exists():
+        df_diario = pd.DataFrame(list(vendas.values('data', 'total')))
+        df_diario['data'] = pd.to_datetime(df_diario['data'])
+        df_diario['dia'] = df_diario['data'].dt.day  
+        df_diario = df_diario.groupby('dia')['total'].sum().reset_index()
 
-
-        inicio = df_agrupado['data'].min()
-        fim = pd.to_datetime('today').normalize().date() + pd.Timedelta(days=1)
-        intervalo_completo = pd.date_range(start=inicio, end=fim).date
-
-
-        df_completo = (
-            df_agrupado.set_index('data')
-            .reindex(intervalo_completo, fill_value=0)
-            .rename_axis('data')
-            .reset_index()
-        )
-
-      
-      
-        fig = px.line(
-            df_completo,
-            x='data',
-            y='total',
-            title='Total de Dinheiro Ganho por Dia',
+        grafico_vendas = px.line(
+            df_diario,
+            x='dia', y='total',
+            title='Faturamento Diário do Mês',
             markers=True,
             line_shape='spline'
-        )
+        ).to_html(full_html=False)
+    else:
+        grafico_vendas = "<p>Sem vendas registradas no mês.</p>"
 
-        fig.update_layout(
-            xaxis_title='Data',
-            yaxis_title='Total (R$)',
-            template='plotly_dark',
-            plot_bgcolor="#000000",
-            paper_bgcolor='#fff',
-            font=dict(family='Arial', size=14)
-        )
-        fig.update_xaxes(tickformat='%d')
+    df_financeiro = pd.DataFrame({
+        'Categoria': ['Faturamento', 'Gastos', 'Lucro'],
+        'Valor': [faturamento, gastos, lucro]
+    })
+    grafico_financeiro = px.bar(
+        df_financeiro, x='Categoria', y='Valor', color='Categoria',
+        title='Resumo Financeiro do Mês'
+    ).to_html(full_html=False)
 
-        grafico = fig.to_html(full_html=False)
+    context = {
+        'form': form,
+        'total_vendas': total_vendas,
+        'faturamento': faturamento,
+        'gastos': gastos,
+        'lucro': lucro,
+        'total_estoque': total_estoque,
+        'produto_mais_vendido': produto_mais_vendido,
+        'produto_menos_vendido': produto_menos_vendido,
+        'grafico_vendas': grafico_vendas,
+        'grafico_financeiro': grafico_financeiro,
+        'meta': meta,
+        'percentual': percentual,
+    }
 
-    return render(request, 'app_dash/graficos.html', {'grafico': grafico})
+    return render(request, 'app_dash/graficos.html', context)
+
 @login_required
 def estoque(request):
     if request.method == 'POST':

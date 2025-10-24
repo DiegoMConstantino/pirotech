@@ -1,21 +1,21 @@
 {% extends 'app_dash/base.html' %}
 {% load static %}
 {% block content %}
-<h2>Vendas</h2>
-<p>Registre vendas e acompanhe o histórico.</p>
-<div class="vendas-container">
 
+<div class="vendas-container">
+    <h2 style="color: #D18100">Vendas</h2>
+    <p>Registre vendas e acompanhe o histórico.</p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Registrar Venda</button>
+        <button class="btn" type="submit">Registrar Venda</button>
     </form>
 
     <hr>
 
 
-    <h3>Produtos em Estoque</h3>
-    <table>
+    <h3 style="color: #D18100;">Produtos em Estoque</h3>
+    <table id="estoqueTable">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -47,8 +47,8 @@
     <hr>
 
 
-    <h3>Histórico de Vendas</h3>
-    <table>
+    <h3 style="color: #D18100;">Histórico de Vendas</h3>
+    <table id="vendasTable">
         <thead>
             <tr>
                 <th>Produto</th>

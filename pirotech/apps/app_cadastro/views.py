@@ -129,3 +129,11 @@ def logout_view(request):
     logout(request)
     messages.success(request,'Logout realizado')
     return redirect('entrar')
+
+
+def promover_funcionario(request, pk):
+    funcionario = get_object_or_404(CustomUser, pk=pk)
+    funcionario.role = 'GERENTE'
+    funcionario.save()
+    messages.success(request, f'{funcionario.username} foi promovido a gerente.')
+    return redirect('funcionario')

@@ -1,6 +1,7 @@
 {% extends 'app_dash/base.html' %}
 
 {% block content %}
+<div class="fundo_func">
   <h2>Gerenciamento de Funcionários e Gerentes</h2>
   <p>Aqui você pode ver e gerenciar seus funcionários e gerentes.</p>
 
@@ -12,7 +13,7 @@
     {% endfor %}
   {% endif %}
 
-  <table class="table table-striped">
+  <table id="tabela_func">
     <thead>
       <tr>
         <th>Nome de Usuário</th>
@@ -28,6 +29,14 @@
           <td>{{ funcionario.email }}</td>
           <td>{{ funcionario.get_role_display }}</td>
           <td>
+            {% if funcionario.role == 'FUNCIONARIO' %}
+    <form action="{% url 'promover_funcionario' funcionario.pk %}" method="post" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success btn-sm">Promover</button>
+    </form>
+{% else %}
+    <span class="text-muted">Já é gerente</span>
+{% endif %}
             <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ funcionario.pk }}">
               Excluir
             </a>
@@ -61,4 +70,5 @@
       {% endfor %}
     </tbody>
   </table>
+</div>
 {% endblock %}

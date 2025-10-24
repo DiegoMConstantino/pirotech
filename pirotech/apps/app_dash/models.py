@@ -4,10 +4,6 @@ from django.db import models
 from django.utils import timezone
 
 class Produto(models.Model):
-    """
-    Representa um produto no estoque. O preço é o valor de venda unitário.
-    A quantidade representa o total de unidades disponíveis em estoque.
-    """
     ANIMAIS = [
         ('Cavalo', 'Cavalo'),
         ('Bovino', 'Bovino'),
@@ -77,3 +73,10 @@ class Venda(models.Model):
         
         return f"Venda de {self.quantidade_vendida}x {self.produto.nome} em {self.data.strftime('%d/%m/%Y')} - Total: R$ {self.total}"
 
+class Despesa(models.Model):
+    mes_referencia = models.DateField(default=timezone.now)
+    valor = models.DecimalField(max_digits=10,decimal_places=2)
+
+    def __str__(self):
+        return f"Despesa de {self.mes_referencia.strftime('%m/%Y')} - R$ {self.valor}"
+    
